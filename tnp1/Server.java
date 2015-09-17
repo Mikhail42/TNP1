@@ -28,8 +28,10 @@ public class Server {
                 try{
                     writeResponse(readAndCalculate());
                 }  catch (java.lang.IllegalArgumentException nfe){
-                    String out = "Невозможно выполнение данной операции над полученными матрицами. Проверьте размерность матрицы";
-                    outStream.write(out.getBytes());            
+                    String out1 = "Error ";
+                    String out2 = "Невозможно выполнение данной операции над полученными матрицами. Проверьте размерность матрицы";
+                    outStream.write(out1.getBytes()); 
+                    outStream.write(out2.getBytes());            
                     outStream.flush(); 
                 } 
             } catch (IOException ioe) {
