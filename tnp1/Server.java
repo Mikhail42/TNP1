@@ -56,8 +56,10 @@ public class Server {
             String curAdd = null; 
             java.util.LinkedList<String> strs1 = new java.util.LinkedList<>();
             while (!"$".equals(curAdd = br.readLine())) strs1.addLast(curAdd);
+            if (strs1.size()==0) throw new NumberFormatException();
             java.util.LinkedList<String> strs2 = new java.util.LinkedList<>();
             while (!"$".equals(curAdd = br.readLine())) strs2.addLast(curAdd);
+            if (strs2.size()==0) throw new NumberFormatException();
             double[][] A = MyMatrix.input(strs1.toArray());
             double[][] B = MyMatrix.input(strs2.toArray());         
             return getResultMatrix(operationID,A,B);
