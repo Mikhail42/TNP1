@@ -25,11 +25,15 @@ public class Server {
         }
         public void run(){
             try {
-                writeResponse(readAndCalculate());
+                try{
+                    writeResponse(readAndCalculate());
+                }  catch (java.lang.IllegalArgumentException nfe){
+                    String out = "Невозможно выполнение данной операции над полученными матрицами. Проверьте размерность матрицы";
+                    outStream.write(out.getBytes());            
+                    outStream.flush(); 
+                } 
             } catch (IOException ioe) {
                 System.err.println("При чтении из потока или при записи из него возникла ошибка: "+ioe.toString());
-            } catch (NumberFormatException  nfe){
-                System.err.println("Невозможно выполнение данной операции над полученными матрицами. Проверьте размерность матрицы");
             } finally {
                 try {
                     System.out.println("Закрытие сокета");
