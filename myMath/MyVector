@@ -1,0 +1,83 @@
+package myMath;
+import java.text.DecimalFormat;
+/**
+ * @author misha
+ */
+public class MyVector {
+    private static void tryCorrect(double[] a) throws java.lang.IllegalArgumentException{
+        if (a==null || a.length==0) throw new java.lang.IllegalArgumentException("Некорректный размер обрабатываемых объектов");
+    } 
+    public static String toString(double[] a) throws java.lang.IllegalArgumentException{
+        return toString(a,2);
+    }
+    public static double getElement(double[] a, int i) throws java.lang.IllegalArgumentException{
+        if (i<0 || i>=a.length) throw new java.lang.IllegalArgumentException("Неправильный номер столбца");
+        return a[i];
+    }
+    public static void setElement(double element, double[] a, int i) throws java.lang.IllegalArgumentException{
+        if (i<0 || i>=a.length) throw new java.lang.IllegalArgumentException("Неправильный номер столбца");
+        a[i] = element;
+    }
+    public static String toString(double[] a, int count) throws java.lang.IllegalArgumentException{
+        tryCorrect(a);
+        StringBuilder formatStr = new StringBuilder("#0."); for (int i=0; i<count; i++) formatStr.append('0');
+        DecimalFormat formatter = new DecimalFormat(formatStr.toString());
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<a.length-1;i++) sb.append(formatter.format(a[i])).append(' ');
+        sb.append(formatter.format(a[a.length-1]));
+        return sb.toString();
+    }
+    public static double[] input(String in) throws java.lang.NumberFormatException{
+        String[] ss = in.split(" ");
+        double[] a = new double[ss.length];
+        for (int i=0; i<a.length;i++) a[i] = Double.parseDouble(ss[i]);
+        return a;
+    }
+    private static void tryCorrect(double[] a, double[] b,int i1, int i2) throws java.lang.IllegalArgumentException{
+        if (a==null || b==null || a.length==0 || b.length==0 || a.length!=b.length)
+            throw new java.lang.IllegalArgumentException("Некорректный размер обрабатываемых объектов");
+        if (i2>=a.length && i1<0) throw new java.lang.IllegalArgumentException("Некорректный диапазон");
+    }  
+    private static void tryCorrect(double[] a, double[][] B, int j) throws java.lang.IllegalArgumentException{
+        if (a==null || B==null || a.length==0 || B.length==0 || a.length!=B[0].length)
+            throw new java.lang.IllegalArgumentException("Некорректный размер обрабатываемых объектов");
+        if (j<0 || j>B[0].length) throw new java.lang.IllegalArgumentException("Некорректный диапазон");
+    }
+    public static double multi(double[] a, double[] b, int i1, int i2) throws java.lang.IllegalArgumentException{
+        tryCorrect(a,b,i1,i2);
+        double sum = 0.; for (int i = i1; i<i2; i++) sum+=a[i]*b[i]; 
+        return sum;
+    }
+    public static double multi(double[] a, double[][] B, int j) throws java.lang.IllegalArgumentException{
+        tryCorrect(a, B, j);
+        double sum = 0.; for (int i = 0; i<a.length; i++) sum+=a[i]*B[i][j]; 
+        return sum;
+    }
+    public static double multi(double[] a, double[] b) throws java.lang.IllegalArgumentException {
+        return multi(a,b,0,a.length-1);
+    }
+    public static double[] plus(double[] a, double[] b, int i1, int i2) throws java.lang.IllegalArgumentException{
+        tryCorrect(a,b,i1,i2);
+        double[] res = new double[a.length];
+        for (int i = i1; i<i2; i++) res[i]=a[i]+b[i]; 
+        return res;
+    }
+    public static double[] plus(double[] a, double[] b) throws java.lang.IllegalArgumentException{
+        return plus(a,b,0,a.length);
+    }
+    public static double[] minus(double[] a, double[] b, int i1, int i2) throws java.lang.IllegalArgumentException{
+        tryCorrect(a,b,i1,i2);
+        double[] res = new double[a.length];
+        for (int i = i1; i<i2; i++) res[i]=a[i]-b[i]; 
+        return res;
+    }
+    public static double[] minus(double[] a, double[] b) throws java.lang.IllegalArgumentException{
+        return plus(a,b,0,a.length);
+    }
+    public static double[][] multiToMatrix(double[] a, double[] b) throws java.lang.IllegalArgumentException{
+        tryCorrect(a,b,0,a.length-1);
+        double[][] res = new double[a.length][b.length];
+        for (int i = 0; i<a.length; i++) for (int j = 0; i<b.length; j++) res[i][j]=a[i]*b[j]; 
+        return res;
+    }
+}
