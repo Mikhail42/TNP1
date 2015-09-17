@@ -27,8 +27,10 @@ public class MyMatrix implements java.io.Serializable{
         return A;
     }
     private static void tryCorrect(double[][] A, double[][] B) throws java.lang.IllegalArgumentException{
-        if (A==null || B==null || A.length==0 || B.length==0)
-            throw new java.lang.IllegalArgumentException("Некорректный размер одной из матриц");
+        boolean flag = !(A==null || B==null || A.length==0 || B.length==0);
+        int m = A[0].length; for (int i = 1; i<A.length;i++) flag&=(A[i].length==m);
+        int k = B[0].length; for (int i = 1; i<B.length;i++) flag&=(B[i].length==k);
+        if (!flag) throw new java.lang.IllegalArgumentException("Некорректный размер одной из матриц");
     }     
     public static double[][] multi(double[][] A, double[][] B) throws java.lang.IllegalArgumentException{
         tryCorrect(A,B);
